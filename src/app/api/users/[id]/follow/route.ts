@@ -24,9 +24,6 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-  await supabase.rpc("increment", { column_name: "followers_count", row_id: followingId, by: 1 });
-  await supabase.rpc("increment", { column_name: "following_count", row_id: followerId, by: 1 });
-
   return NextResponse.json(data);
 }
 
@@ -51,11 +48,6 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     .eq("following_id", followingId);
 
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-
-  // Decrement followers_count in target user's profile
-    await supabase.rpc("decrement", { column_name: "followers_count", row_id: followingId, by: 1 });
-
-    await supabase.rpc("decrement", { column_name: "following_count", row_id: followerId, by: 1 });
 
 
   return NextResponse.json(data);
