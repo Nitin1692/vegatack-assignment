@@ -37,8 +37,8 @@ Trigger-based notifications for follows (and extendable for likes/comments)
 ⚙️ Setup
 1️⃣ Clone & Install
 ```bash
-git clone https://github.com/yourusername/socialconnect.git
-cd socialconnect
+git clone https://github.com/Nitin1692/vegatack-assignment.git
+cd vegatack-assignment
 npm install
 ```
 
