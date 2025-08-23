@@ -2,9 +2,13 @@ import { NextResponse, NextRequest } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { supabaseAdmin } from '@/utils/supabase/server';
 
+interface RouteContext {
+  params: {
+    post_id: string;
+  };
+}
 
-
-export async function GET(req: Request,context: { params: { post_id: string } }) {
+export async function GET(req: Request,context: RouteContext) {
     const { post_id } = context.params;
   const users = await requireAuth();
   // If guard returned a Response, bubble it
@@ -28,7 +32,7 @@ const MAX_SIZE = 2 * 1024 * 1024; // 2MB
 
 export async function PUT(
   req: Request,
-  context: { params: { post_id: string } }
+  context: RouteContext
 ) {
   const { post_id } = context.params;
   const user = await requireAuth();
@@ -87,7 +91,7 @@ export async function PUT(
 }
 
 
-export async function DELETE(req: Request, context: { params: { post_id: string } }) {
+export async function DELETE(req: Request, context: RouteContext) {
     const { post_id } = context.params;
   const users = await requireAuth();
   // If guard returned a Response, bubble it

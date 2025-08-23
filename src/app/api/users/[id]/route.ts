@@ -3,13 +3,15 @@ import { NextResponse,NextRequest } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { createClient } from '@/utils/supabase/server';
 
-interface Props {
-  params: { id: string };
+interface RouteContext {
+  params: {
+    id: string;
+  };
 }
 
-export async function GET(req: Request, { params }: Props) {
+export async function GET(req: Request, context: RouteContext) {
   // Await params before accessing its properties
-  const { id } = params;
+  const { id } = context.params;
   
   // Await cookies() before using it
   const user = await requireAuth();

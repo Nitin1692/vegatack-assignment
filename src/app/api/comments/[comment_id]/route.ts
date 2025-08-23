@@ -7,8 +7,8 @@ interface Props {
   params: { comment_id: string };
 }
 
-export async function DELETE(req: Request, { params }: Props) {
-  const { comment_id } = params;
+export async function DELETE(req: Request, context: Props) {
+  const { comment_id } = context.params;
   const user = await requireAuth();
   // @ts-ignore
   if ("status" in user) return user;

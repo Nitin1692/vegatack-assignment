@@ -3,10 +3,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/guard";
 import { supabaseAdmin } from "@/utils/supabase/server";
 
-interface Props {
-  params: { post_id: string };
+interface RouteContext {
+  params: {
+    post_id: string;
+  };
 }
-export async function GET(req: Request, context: { params: { post_id: string } }) {
+export async function GET(req: Request, context: RouteContext) {
   const { post_id } = context.params;
   const user = await requireAuth();
   // @ts-ignore
