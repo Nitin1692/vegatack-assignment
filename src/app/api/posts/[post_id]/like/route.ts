@@ -2,12 +2,9 @@ import { NextResponse, NextRequest } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { supabaseAdmin } from '@/utils/supabase/server';
 
-interface Props {
-  params: { post_id: string };
-}
 
-export async function POST(req: Request, { params }: Props) {
-  const { post_id } = params;
+export async function POST(req: Request, context: { params: { post_id: string } }) {
+  const { post_id } = context.params;
   const user = await requireAuth();
   // @ts-ignore
   if ("status" in user) return user;
@@ -27,8 +24,8 @@ export async function POST(req: Request, { params }: Props) {
   return NextResponse.json({ message: "Post liked" });
 }
 
-export async function DELETE(req: Request, { params }: Props) {
-    const { post_id } = params;
+export async function DELETE(req: Request, context: { params: { post_id: string } }) {
+    const { post_id } = context.params;
     const user = await requireAuth();
     // @ts-ignore
     if ("status" in user) return user;

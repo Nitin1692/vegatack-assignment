@@ -2,13 +2,11 @@ import { NextResponse,NextRequest } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { supabaseAdmin } from '@/utils/supabase/server';
 
-interface Props {
-  params: { id: string };
-}
 
 
-export async function POST(req: Request, { params }: Props) {
-  const { id } = params; // no need for await here
+
+export async function POST(req: Request, context: { params: { id: string } }) {
+  const { id } = context.params; // no need for await here
   const user = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
@@ -31,8 +29,8 @@ export async function POST(req: Request, { params }: Props) {
   return NextResponse.json(data);
 }
 
-export async function DELETE(req: Request, { params }: Props) {
-  const { id } =  params;
+export async function DELETE(req: Request, context: { params: { id: string } }) {
+  const { id } =  context.params;
   const user = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore

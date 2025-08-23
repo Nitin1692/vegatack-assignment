@@ -3,12 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/guard";
 import { supabaseAdmin } from "@/utils/supabase/server";
 
-interface Props {
-  params: { post_id: string };
-}
 
-export async function POST(req: Request, { params }: Props) {
-  const { post_id } = params;
+
+export async function POST(req: Request, context: { params: { post_id: string } }) {
+  const { post_id } = context.params;
   const user = await requireAuth();
   // @ts-ignore
   if ("status" in user) return user;
@@ -35,8 +33,8 @@ export async function POST(req: Request, { params }: Props) {
   return NextResponse.json(data);
 }
 
-export async function GET(req: NextRequest, { params }: Props) {
-  const { post_id } = params;
+export async function GET(req: NextRequest, context: { params: { post_id: string } }) {
+  const { post_id } = context.params;
   const supabase = supabaseAdmin();
 
   const { data, error } = await supabase

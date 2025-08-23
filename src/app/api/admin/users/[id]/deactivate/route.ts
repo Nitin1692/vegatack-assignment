@@ -3,15 +3,13 @@ import { NextResponse, NextRequest } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { createClient } from '@/utils/supabase/server';
 
-interface Props {
-  params: { id: string };
-}
+
 
 export async function POST(
   req: Request,
-  { params }: Props
+  context: { params: { id: string } }
 ) {
-        const { id } = params;
+        const { id } = context.params;
        const users = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
