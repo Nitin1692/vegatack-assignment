@@ -2,7 +2,11 @@ import { NextResponse, NextRequest } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { supabaseAdmin } from '@/utils/supabase/server';
 
-export async function GET(req: Request, { params }: { params: { post_id: string } }) {
+interface Props {
+  params: { post_id: string };
+}
+
+export async function GET(req: Request,{ params }: Props) {
     const { post_id } = params;
   const users = await requireAuth();
   // If guard returned a Response, bubble it
@@ -26,7 +30,7 @@ const MAX_SIZE = 2 * 1024 * 1024; // 2MB
 
 export async function PUT(
   req: Request,
-  { params }: { params: { post_id: string } }
+  { params }: Props
 ) {
   const { post_id } = params;
   const user = await requireAuth();
@@ -85,7 +89,7 @@ export async function PUT(
 }
 
 
-export async function DELETE(req: Request, { params }: { params: { post_id: string } }) {
+export async function DELETE(req: Request, { params }: Props) {
     const { post_id } = params;
   const users = await requireAuth();
   // If guard returned a Response, bubble it

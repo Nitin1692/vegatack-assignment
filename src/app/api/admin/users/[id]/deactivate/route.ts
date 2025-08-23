@@ -3,9 +3,13 @@ import { NextResponse, NextRequest } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { createClient } from '@/utils/supabase/server';
 
+interface Props {
+  params: { id: string };
+}
+
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: Props
 ) {
         const { id } = params;
        const users = await requireAuth();

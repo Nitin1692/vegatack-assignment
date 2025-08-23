@@ -3,7 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/guard";
 import { supabaseAdmin } from "@/utils/supabase/server";
 
-export async function GET(req: Request, { params }: { params: { post_id: string } }) {
+interface Props {
+  params: { post_id: string };
+}
+export async function GET(req: Request, { params }: Props) {
   const { post_id } = params;
   const user = await requireAuth();
   // @ts-ignore

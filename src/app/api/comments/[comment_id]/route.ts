@@ -3,7 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/guard";
 import { supabaseAdmin } from "@/utils/supabase/server";
 
-export async function DELETE(req: Request, { params }: { params: { comment_id: string } }) {
+interface Props {
+  params: { comment_id: string };
+}
+
+export async function DELETE(req: Request, { params }: Props) {
   const { comment_id } = params;
   const user = await requireAuth();
   // @ts-ignore

@@ -2,7 +2,11 @@ import { NextResponse,NextRequest } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { createClient } from '@/utils/supabase/server';
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+interface Props {
+  params: { id: string };
+}
+
+export async function GET(req: Request, { params }: Props) {
     const { id } = params;
   const users = await requireAuth();
   // If guard returned a Response, bubble it
