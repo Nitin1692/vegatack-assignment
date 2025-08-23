@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SocialConnect
 
-## Getting Started
+A full-stack social media web application built with Next.js (App Router) and Supabase (Postgres + Auth).
+Users can register, log in, create posts with images, like/unlike posts, comment, follow other users, and view notifications.
 
-First, run the development server:
+# 🚀 Features
 
+## 🔐 Authentication
+
+User registration & login with Supabase Auth
+
+Profiles auto-linked to users
+
+## 👤 Profiles
+
+View & edit profile
+
+Following & followers count auto-updated via triggers
+
+Notifications for new follows
+
+## 📝 Posts
+
+Create, read, update, and delete posts
+
+Upload optional images
+
+Like / Unlike posts
+
+Comment on posts
+
+## 🔔 Notifications
+
+Trigger-based notifications for follows (and extendable for likes/comments)
+
+
+⚙️ Setup
+1️⃣ Clone & Install
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/socialconnect.git
+cd socialconnect
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2️⃣ Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a .env.local file:
+```bash
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+▶️ Running the App
+```bash
+npm run dev
+```
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+App will be available at http://localhost:3000
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔮 API Endpoints
+Auth
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+POST /api/auth/register → register user
 
-## Deploy on Vercel
+POST /api/auth/login → login user
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Posts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+GET /api/posts → list posts
+
+POST /api/posts → create post
+
+PUT /api/posts/:id → update post
+
+DELETE /api/posts/:id → delete post
+
+Likes
+
+POST /api/posts/:id/like → like post
+
+DELETE /api/posts/:id/like → unlike post
+
+Comments
+
+GET /api/posts/:id/comments → get comments
+
+POST /api/posts/:id/comments → add comment
+
+Profiles
+
+GET /api/profiles/:id → get profile
+
+PUT /api/profiles/:id → update profile
+
+## 🛠️ Tech Stack
+
+Next.js (App Router)
+
+Supabase (Postgres + Auth)
+
+TypeScript
+
+TailwindCSS
+
+shadcn/ui

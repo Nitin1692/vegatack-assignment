@@ -60,6 +60,7 @@ export async function GET(req: NextRequest) {
   const { data, error } = await supabase
     .from("posts")
     .select("*", { count: "exact" })
+    .eq("author_id", users.id)
     .order("created_at", { ascending: false })
     .range((page - 1) * perPage, page * perPage - 1);
 

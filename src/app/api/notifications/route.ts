@@ -20,8 +20,9 @@ export async function GET(req: NextRequest) {
     .select(
       `
       id, type, read, created_at,
-      actor_id:profiles!notifications_sender_fkey(username, avatar_url),
-      post_id:posts(id, content)
+      actor_id:profiles!notifications_actor_id_fkey(username, avatar_url),
+      post_id:posts(id, content),
+      message
     `
     )
     .eq("user_id", user.id)
