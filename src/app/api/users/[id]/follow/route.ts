@@ -3,9 +3,9 @@ import { requireAuth } from '@/lib/guard';
 import { supabaseAdmin } from '@/utils/supabase/server';
 
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
-  const { id } = await params; // no need for await here
-  const user = await requireAuth();
+export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+  const { id } = params; // no need for await here
+  const user = await requireAuth(req);
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in user) return user;
@@ -27,9 +27,9 @@ export async function POST(req: Request, { params }: { params: { id: string } })
   return NextResponse.json(data);
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const { id } =  await params;
-  const user = await requireAuth();
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+  const { id } =  params;
+  const user = await requireAuth(req);
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in user) return user;

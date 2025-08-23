@@ -1,11 +1,11 @@
 // app/api/posts/[post_id]/like-status/route.ts
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/guard";
 import { supabaseAdmin } from "@/utils/supabase/server";
 
-export async function GET(req: Request, { params }: { params: { post_id: string } }) {
-  const { post_id } = await params;
-  const user = await requireAuth();
+export async function GET(req: NextRequest, { params }: { params: { post_id: string } }) {
+  const { post_id } = params;
+  const user = await requireAuth(req);
   // @ts-ignore
   if ("status" in user) return user;
 

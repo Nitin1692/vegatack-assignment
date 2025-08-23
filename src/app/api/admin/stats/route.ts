@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { createClient } from '@/utils/supabase/server';
 
-export async function GET() {
-    const me = await requireAuth();
+export async function GET(req: NextRequest) {
+    const me = await requireAuth(req);
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in me) return me;

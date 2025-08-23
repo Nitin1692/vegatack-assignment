@@ -1,11 +1,11 @@
 // app/api/comments/[comment_id]/route.ts
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/guard";
 import { supabaseAdmin } from "@/utils/supabase/server";
 
-export async function DELETE(req: Request, { params }: { params: { comment_id: string } }) {
-  const { comment_id } = await params;
-  const user = await requireAuth();
+export async function DELETE(req: NextRequest, { params }: { params: { comment_id: string } }) {
+  const { comment_id } = params;
+  const user = await requireAuth(req);
   // @ts-ignore
   if ("status" in user) return user;
 

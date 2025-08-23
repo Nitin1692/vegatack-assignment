@@ -2,9 +2,9 @@ import { NextResponse, NextRequest } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { supabaseAdmin } from '@/utils/supabase/server';
 
-export async function POST(req: Request, { params }: { params: { post_id: string } }) {
-  const { post_id } = await params;
-  const user = await requireAuth();
+export async function POST(req: NextRequest, { params }: { params: { post_id: string } }) {
+  const { post_id } = params;
+  const user = await requireAuth(req);
   // @ts-ignore
   if ("status" in user) return user;
 
@@ -23,9 +23,9 @@ export async function POST(req: Request, { params }: { params: { post_id: string
   return NextResponse.json({ message: "Post liked" });
 }
 
-export async function DELETE(req: Request, { params }: { params: { post_id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: { post_id: string } }) {
     const { post_id } = params;
-    const user = await requireAuth();
+    const user = await requireAuth(req);
     // @ts-ignore
     if ("status" in user) return user;
     

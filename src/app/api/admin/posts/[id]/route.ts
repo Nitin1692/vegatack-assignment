@@ -4,11 +4,11 @@ import { requireAuth } from '@/lib/guard';
 import { createClient } from '@/utils/supabase/server';
 
 export async function DELETE(
-  req: Request,
+  req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-        const { id } = await params;
-           const users = await requireAuth();
+        const { id } = params;
+           const users = await requireAuth(req);
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in users) return users;
