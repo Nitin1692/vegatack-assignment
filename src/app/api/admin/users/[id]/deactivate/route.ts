@@ -4,11 +4,11 @@ import { requireAuth } from '@/lib/guard';
 import { createClient } from '@/utils/supabase/server';
 
 export async function POST(
-  req: NextRequest,
+  req: Request,
   { params }: { params: { id: string } }
 ) {
         const { id } = params;
-       const users = await requireAuth(req);
+       const users = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in users) return users;

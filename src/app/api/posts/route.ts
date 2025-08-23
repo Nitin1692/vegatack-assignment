@@ -7,7 +7,7 @@ const ALLOWED_TYPES = ["image/jpeg", "image/png"];
 const MAX_SIZE = 2 * 1024 * 1024; // 2MB
 
 export async function POST(req: NextRequest) {
-  const users = await requireAuth(req);
+  const users = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in users) return users;

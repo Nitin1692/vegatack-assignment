@@ -3,11 +3,11 @@ import { NextResponse , NextRequest} from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { createClient } from '@/utils/supabase/server';
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: { id: string } }) {
   const { id } = params;
   
   // Await cookies() before using it
-  const user = await requireAuth(req);
+  const user = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in user) return user;

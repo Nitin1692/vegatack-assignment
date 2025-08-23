@@ -6,8 +6,8 @@ import { createClient } from '@/utils/supabase/server';
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
 const MAX_SIZE = 5 * 1024 * 1024; // 5 MB
 
-export async function PUT(req: NextRequest) {
-    const users = await requireAuth(req);
+export async function PUT(req: Request) {
+    const users = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in users) return users;
