@@ -3,17 +3,12 @@ import { NextResponse, NextRequest } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { createClient } from '@/utils/supabase/server';
 
-interface RouteContext {
-  params: {
-    id: string;
-  };
-}
 
 export async function GET(
   req: Request,
-  context: RouteContext
+  {params}: { params: Promise<{ id: string }>}
 ) {
-    const { id } = context.params;
+    const { id } = await params;
    const users = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore

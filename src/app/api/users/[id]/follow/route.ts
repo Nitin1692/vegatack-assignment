@@ -3,14 +3,10 @@ import { requireAuth } from '@/lib/guard';
 import { supabaseAdmin } from '@/utils/supabase/server';
 
 
-interface RouteContext {
-  params: {
-    id: string;
-  };
-}
 
-export async function POST(req: Request, context: RouteContext) {
-  const { id } = context.params; // no need for await here
+
+export async function POST(req: Request, {params}: { params: Promise<{ id: string }>}) {
+  const { id } = await params; // no need for await here
   const user = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
@@ -33,8 +29,8 @@ export async function POST(req: Request, context: RouteContext) {
   return NextResponse.json(data);
 }
 
-export async function DELETE(req: Request, context: RouteContext) {
-  const { id } =  context.params;
+export async function DELETE(req: Request, {params}: { params: Promise<{ id: string }>}) {
+  const { id } =  await params;
   const user = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
