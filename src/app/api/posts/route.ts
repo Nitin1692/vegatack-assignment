@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const users = await requireAuth(req);
+  const users = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in users) return users;
