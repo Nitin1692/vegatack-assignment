@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { createClient as client } from '@supabase/supabase-js';
 
 export async function createClient() {
   const cookieStore = await cookies()
@@ -30,8 +31,7 @@ export async function createClient() {
 
 export function supabaseAdmin() {
   // For admin routes that need RLS bypass
-  const { createClient } = require('@supabase/supabase-js');
-  return createClient(
+  return client(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
