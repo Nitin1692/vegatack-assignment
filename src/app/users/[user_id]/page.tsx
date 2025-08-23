@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { apiFetch } from "@/utils/apiClient";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useParams } from "next/navigation";
 
-export default async function UserProfile(props: {params: Promise<{ user_id: string }>}) {
+export default function UserProfile() {
   const [user, setUser] = useState<any>(null);
   const [following, setFollowing] = useState(false);
-  const {user_id} = await props.params;
+  const { user_id } = useParams();
 
   const fetchUser = async () => {
     const data = await apiFetch(`/api/users/${user_id}/`);
