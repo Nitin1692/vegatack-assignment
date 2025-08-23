@@ -2,9 +2,9 @@ import { NextResponse, NextRequest } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { supabaseAdmin } from '@/utils/supabase/server';
 
-export async function GET(req: NextRequest, { params }: { params: { post_id: string } }) {
+export async function GET(req: Request, { params }: { params: { post_id: string } }) {
     const { post_id } = await params;
-  const users = await requireAuth(req);
+  const users = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in users) return users;
@@ -25,11 +25,11 @@ const ALLOWED_TYPES = ["image/jpeg", "image/png"];
 const MAX_SIZE = 2 * 1024 * 1024; // 2MB
 
 export async function PUT(
-  req: NextRequest,
+  req: Request,
   { params }: { params: { post_id: string } }
 ) {
   const { post_id } = await params;
-  const user = await requireAuth(req);
+  const user = await requireAuth();
   // @ts-ignore
   if ("status" in user) return user;
 
@@ -85,9 +85,9 @@ export async function PUT(
 }
 
 
-export async function DELETE(req: NextRequest, { params }: { params: { post_id: string } }) {
+export async function DELETE(req: Request, { params }: { params: { post_id: string } }) {
     const { post_id } = await params;
-  const users = await requireAuth(req);
+  const users = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in users) return users;

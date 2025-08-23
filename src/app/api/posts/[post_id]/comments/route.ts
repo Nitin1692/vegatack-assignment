@@ -1,11 +1,11 @@
 // app/api/posts/[post_id]/comments/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { requireAuth } from "@/lib/guard";
 import { supabaseAdmin } from "@/utils/supabase/server";
 
-export async function POST(req: NextRequest, { params }: { params: { post_id: string } }) {
+export async function POST(req: Request, { params }: { params: { post_id: string } }) {
   const { post_id } = await params;
-  const user = await requireAuth(req);
+  const user = await requireAuth();
   // @ts-ignore
   if ("status" in user) return user;
 
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest, { params }: { params: { post_id: st
   return NextResponse.json(data);
 }
 
-export async function GET(req: NextRequest, { params }: { params: { post_id: string } }) {
+export async function GET(req: Request, { params }: { params: { post_id: string } }) {
   const { post_id } = await params;
   const supabase = supabaseAdmin();
 

@@ -1,14 +1,14 @@
 // app/api/users/[id]/route.ts
-import { NextResponse,NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { createClient } from '@/utils/supabase/server';
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: Request, { params }: { params: { id: string } }) {
   // Await params before accessing its properties
   const { id } = await params;
   
   // Await cookies() before using it
-  const user = await requireAuth(req);
+  const user = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in user) return user;

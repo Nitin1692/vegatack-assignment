@@ -1,14 +1,14 @@
 // app/api/admin/users/[id]/route.ts
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { requireAuth } from '@/lib/guard';
 import { createClient } from '@/utils/supabase/server';
 
 export async function GET(
-  req: NextRequest,
+  req: Request,
   { params }: { params: { id: string } }
 ) {
     const { id } = await params;
-   const users = await requireAuth(req);
+   const users = await requireAuth();
   // If guard returned a Response, bubble it
   // @ts-ignore
   if ('status' in users) return users;
